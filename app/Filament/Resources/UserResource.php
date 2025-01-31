@@ -34,19 +34,6 @@ class UserResource extends Resource
                 ->password()
                 ->required()
                 ->maxLength(20),
-                Forms\Components\TextInput::make('address')
-                ->required()
-                ->maxLength(255),
-                Forms\Components\TextInput::make('phone')
-                ->tel()
-                ->required()
-                ->maxLength(255),
-                Forms\Components\TextInput::make('city')
-                ->required()
-                ->maxLength(255),
-                Forms\Components\FileUpload::make('image')
-                ->image()
-                ->required(),
             ]);
     }
 
@@ -54,13 +41,19 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                ->searchable(),
+                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('password')
+                ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
