@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -24,9 +25,6 @@ class BimbinganBelajarResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('description')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address')
@@ -45,6 +43,9 @@ class BimbinganBelajarResource extends Resource
                 Forms\Components\TextInput::make('price_range')
                     ->required()
                     ->maxLength(255),
+                Textarea::make('description')
+                    ->rows(5)
+                    ->cols(5),
             ]);
     }
 
@@ -53,8 +54,6 @@ class BimbinganBelajarResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('description')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
                     ->searchable(),
@@ -65,6 +64,8 @@ class BimbinganBelajarResource extends Resource
                 Tables\Columns\TextColumn::make('course_type')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('price_range')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('description')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
